@@ -47,7 +47,7 @@ praise("Holy ${exclamation}, you are ${adjective}")
 say("Im tripping ballz!", by = "rms")
 ```
 
-## usethis for everything
+## usethis for everything ALSO CONVERT TO VERSION CONTROL***
 
 R Project first, then git & Github repo.
 To save into version control if you did not set up in version control
@@ -55,7 +55,45 @@ To save into version control if you did not set up in version control
 - usethis::use_git()
 - usethis::use_github()
 
+## paletteer: aggregated color palettes
 
+```{r}
+storms %>% 
+  group_by(name) %>%
+  summarize(min_pressure = min(pressure, na.rm = TRUE)) %>%
+  slice_min(n = 10, min_pressure) %>%# find minimum 10 values 
+  ggplot(aes(x = min_pressure, y = name)) +
+  geom_col(aes(fill = name)) +
+  scale_fill_paletteer_d("basetheme::brutal")
 
+# type paletteer_d("basetheme::brutal") into console to see hexadecimal color code
 
+```
+
+## Map of Jornada LTER Vegetation
+use `read_sf()` to read in NON csv file
+```{r}
+jornada_veg <- read_sf("doc.kml") %>%
+  select(Name) %>%
+  clean_names()
+
+# create a map of vegetation types using ggplot
+ggplot() +
+  geom_sf(data = jornada_veg)
+
+# Update this map: 
+# each vegetation type has a different ill color
+# update the theme
+# customize the color pallete
+
+ggplot(data = jornada_veg) +
+  geom_sf(aes(fill = name), color = NA) + # (aes(fill = name) fill different names with different colors, (color = NA) remove barrier lines
+  scale_fill_paletteer_d("vapeplot::vaporwave") +
+  theme_minimal() +
+  labs(title = "Jornada Basin LTER Vegetation")
+
+# use ggsave to automatically store the MOST RECENTLY GENERATED plot
+
+ggsave(filename = "my_awesome_jornada_map.png", width = 8, height = 5)
+```
 
