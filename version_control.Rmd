@@ -1,0 +1,61 @@
+---
+title: "esm205_lab10xxx"
+author: "Sachiko Lamen"
+date: "11/29/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(janitor)
+library(usethis)
+library(beepr)
+library(praise)
+library(cowsay)
+library(paletteer)
+library(sf)
+```
+
+## beepr::beep() 
+This function beeps when your code is done running
+Use `beep()` to give yourself an audio alert.
+
+## Write a for loop + beep
+
+```{r, eval = FALSE}
+# create sequence from 1-99 but wrap in reverse function so that you can count backwards. For each element `i` reverse the sequence from 1 to 99
+for(i in rev(seq(1:100)))(
+  print(paste(i, "bottles of beer on the wall"))
+)
+
+beep(9)
+```
+
+## praise is nice
+provides you with a nice message out of the box
+
+```{r}
+# can specify a template for how you want the phrase to look
+praise("${EXCLAMATION}!!! This code works ${adverb_manner}!")
+
+praise("Holy ${exclamation}, you are ${adjective}")
+```
+
+## cowsay:: say to have characters say something
+```{r}
+say("Im tripping ballz!", by = "rms")
+```
+
+## usethis for everything
+
+R Project first, then git & Github repo.
+To save into version control if you did not set up in version control
+
+- usethis::use_git()
+- usethis::use_github()
+
+
+
+
+
